@@ -2,6 +2,3 @@ HIT
 ===
 
 HIT
-
-
-hello world!
