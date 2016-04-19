@@ -18,5 +18,13 @@ namespace FG.PDMReader.MSSQL
         public string FOREIGN_KEY { set; get; }
         public string FOREIGN_TABLE { set; get; }
         public string COLUMN_DESC { set; get; }
+        public string ORDINAL_POSITION { set; get; }
+
+        public string IS_IDENTITY { set; get; }
+
+        //NUMERIC_SCALE
+        //public string  { set; get; }
+
+        //public string NUMERIC_SCALE { set; get; }
     }
 }

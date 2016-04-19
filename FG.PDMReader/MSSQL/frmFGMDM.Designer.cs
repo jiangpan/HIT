@@ -30,6 +30,7 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnExportWord = new System.Windows.Forms.Button();
+            this.btnOpenFolder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,11 +54,22 @@
             this.btnExportWord.UseVisualStyleBackColor = true;
             this.btnExportWord.Click += new System.EventHandler(this.btnExportWord_Click);
             // 
+            // btnOpenFolder
+            // 
+            this.btnOpenFolder.Location = new System.Drawing.Point(573, 512);
+            this.btnOpenFolder.Name = "btnOpenFolder";
+            this.btnOpenFolder.Size = new System.Drawing.Size(89, 31);
+            this.btnOpenFolder.TabIndex = 2;
+            this.btnOpenFolder.Text = "打开当前目录";
+            this.btnOpenFolder.UseVisualStyleBackColor = true;
+            this.btnOpenFolder.Click += new System.EventHandler(this.btnOpenFolder_Click);
+            // 
             // frmFGMDM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(953, 568);
+            this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnExportWord);
             this.Controls.Add(this.dataGridView1);
             this.Name = "frmFGMDM";
@@ -73,5 +85,6 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnExportWord;
+        private System.Windows.Forms.Button btnOpenFolder;
     }
 }

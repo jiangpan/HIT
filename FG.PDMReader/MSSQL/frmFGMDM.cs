@@ -25,6 +25,7 @@ namespace FG.PDMReader.MSSQL
              ELSE ''
         END AS*/c.TABLE_SCHEMA + '.' + c.TABLE_NAME TABLE_NAME ,
         c.COLUMN_NAME ,
+        c.ORDINAL_POSITION,
         CASE WHEN ( ( CHARINDEX('char', c.DATA_TYPE) > 0
                       OR CHARINDEX('binary', c.DATA_TYPE) > 0
                     )
@@ -42,6 +43,7 @@ namespace FG.PDMReader.MSSQL
                   + ',' + CAST(c.NUMERIC_SCALE AS VARCHAR(4)) + ')'
              ELSE c.DATA_TYPE
         END AS DATA_TYPE ,
+        CASE WHEN COLUMNPROPERTY(OBJECT_ID(c.TABLE_SCHEMA + '.' + c.TABLE_NAME),c.COLUMN_NAME,'IsIdentity') = 1 THEN '√' ELSE '' END AS IS_IDENTITY, 
         ISNULL(c.COLUMN_DEFAULT, '') AS COLUMN_DEFAULT ,
         CASE WHEN c.IS_NULLABLE = 'YES' THEN '√'
              ELSE ''
@@ -70,8 +72,10 @@ WHERE NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.VIEWS v WHERE v.TABLE_SCHEMA =
 ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
 
 
+        private object path = string.Empty;
+
         private List<Table_Column> _curDbTabColsList = null;
-          
+
 
         public frmFGMDM()
         {
@@ -121,18 +125,17 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
         private void btnExportWord_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            var tttt = this._curDbTabColsList.GroupBy(p=>p.TABLE_NAME);
+            //var tttt = this._curDbTabColsList.GroupBy(p => p.TABLE_NAME);
 
-            foreach (var item in tttt)
-            {
-                Debug.WriteLine(item.GetType().ToString());
+            //foreach (var item in tttt)
+            //{
+            //    string sfds = item.Key;
+            //    foreach (var tabcol in item)
+            //    {
+            //        string sssdfe = tabcol.COLUMN_NAME;
+            //    }
 
-                 item.GetEnumerator();
-
-            }
-
-
-            return;
+            //}
 
             CreateWord1();
             this.Cursor = Cursors.Default;
@@ -145,8 +148,8 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
             string strContent;//文件内容
             MSWord.Application wordApp;//Word应用程序变量
             MSWord.Document wordDoc;//Word文档变量
-            path = Path.Combine( AppDomain.CurrentDomain.BaseDirectory ,DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc") ;//保存为Word2003文档
-                                    // path = "d:\\myWord.doc";//保存为Word2007文档
+            path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc");//保存为Word2003文档
+                                                                                                                         // path = "d:\\myWord.doc";//保存为Word2007文档
             wordApp = new MSWord.ApplicationClass();//初始化
             if (File.Exists((string)path))
             {
@@ -181,7 +184,7 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
             wordApp.ActiveWindow.ActivePane.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekMainDocument;//退出页眉设置
 
             //为当前页添加页码
-            Microsoft.Office.Interop.Word.PageNumbers pns = wordApp.Selection.Sections[1].Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterEvenPages].PageNumbers;//获取当前页的号码
+            MSWord.PageNumbers pns = wordApp.Selection.Sections[1].Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterEvenPages].PageNumbers;//获取当前页的号码
             pns.NumberStyle = Microsoft.Office.Interop.Word.WdPageNumberStyle.wdPageNumberStyleNumberInDash;
             pns.HeadingLevelForChapter = 0;
             pns.IncludeChapterNumber = false;
@@ -238,10 +241,10 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
             table.Cell(rowIndex, 2).Range.Text = "数据类型";
             table.Cell(rowIndex, 3).Range.Text = "默认值";
             table.Cell(rowIndex, 4).Range.Text = "是否为空";
-            table.Cell(rowIndex, 5).Range.Text = "是否主键"; 
-            table.Cell(rowIndex, 6).Range.Text = "是否外键"; 
-            table.Cell(rowIndex, 7).Range.Text = "外键列"; 
-            table.Cell(rowIndex, 8).Range.Text = "外键表"; 
+            table.Cell(rowIndex, 5).Range.Text = "是否主键";
+            table.Cell(rowIndex, 6).Range.Text = "是否外键";
+            table.Cell(rowIndex, 7).Range.Text = "外键列";
+            table.Cell(rowIndex, 8).Range.Text = "外键表";
             table.Cell(rowIndex, 9).Range.Text = "说明";
 
 
@@ -250,15 +253,15 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
             foreach (var i in gpbDbtabColsSingle)
             {
 
-                table.Cell(rowIndex, 1).Range.Text = i.COLUMN_NAME ;// 列名;
-                table.Cell(rowIndex, 2).Range.Text = i.DATA_TYPE ;// 数据类型;
-                table.Cell(rowIndex, 3).Range.Text = i.COLUMN_DEFAULT ;// 默认值;
-                table.Cell(rowIndex, 4).Range.Text = i.IS_NULLABLE ;// 是否为空;
-                table.Cell(rowIndex, 5).Range.Text = i.IS_PRIMARY_KEY ;// 是否主键; 
-                table.Cell(rowIndex, 6).Range.Text = i.IS_PRIMARY_KEY ;// 是否外键; 
-                table.Cell(rowIndex, 7).Range.Text = i.FOREIGN_KEY ;// 外键列; 
-                table.Cell(rowIndex, 8).Range.Text = i.FOREIGN_TABLE ;// 外键表; 
-                table.Cell(rowIndex, 9).Range.Text = i.COLUMN_DESC ;// 说明;
+                table.Cell(rowIndex, 1).Range.Text = i.COLUMN_NAME;// 列名;
+                table.Cell(rowIndex, 2).Range.Text = i.DATA_TYPE;// 数据类型;
+                table.Cell(rowIndex, 3).Range.Text = i.COLUMN_DEFAULT;// 默认值;
+                table.Cell(rowIndex, 4).Range.Text = i.IS_NULLABLE;// 是否为空;
+                table.Cell(rowIndex, 5).Range.Text = i.IS_PRIMARY_KEY;// 是否主键; 
+                table.Cell(rowIndex, 6).Range.Text = i.IS_PRIMARY_KEY;// 是否外键; 
+                table.Cell(rowIndex, 7).Range.Text = i.FOREIGN_KEY;// 外键列; 
+                table.Cell(rowIndex, 8).Range.Text = i.FOREIGN_TABLE;// 外键表; 
+                table.Cell(rowIndex, 9).Range.Text = i.COLUMN_DESC;// 说明;
 
                 //table.Cell(rowIndex, 2).Split(2, 1);//分割名字单元格
                 //table.Cell(rowIndex, 3).Split(2, 1);//分割成绩单元格
@@ -297,7 +300,6 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
 
         private void CreateWord1()
         {
-            object path;//文件路径
             string strContent;//文件内容
             MSWord.Application wordApp;//Word应用程序变量
             MSWord.Document wordDoc;//Word文档变量
@@ -341,7 +343,7 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
                 //this.SetlblStatuText("0");
                 object template = Missing.Value;
                 object obj3 = @"\endofdoc";
-                MSWord.Application application = new MSWord.ApplicationClass {Visible = false};
+                MSWord.Application application = new MSWord.ApplicationClass { Visible = false };
                 MSWord.Document document = application.Documents.Add(ref template, ref template, ref template, ref template);
                 application.ActiveWindow.View.Type = MSWord.WdViewType.wdOutlineView;
                 application.ActiveWindow.View.SeekView = MSWord.WdSeekView.wdSeekPrimaryHeader;
@@ -390,7 +392,7 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
                             {
                             }
                         }
-                        obj4 = document.Bookmarks[ ref obj3].Range;
+                        obj4 = document.Bookmarks[ref obj3].Range;
                         MSWord.Paragraph paragraph3 = document.Content.Paragraphs.Add(ref obj4);
                         paragraph3.Range.Text = str4;
                         paragraph3.Range.Font.Bold = 0;
@@ -400,7 +402,7 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
                         paragraph3.Format.SpaceBefore = 1f;
                         paragraph3.Format.SpaceAfter = 1f;
                         paragraph3.Range.InsertParagraphAfter();
-                        Microsoft.Office.Interop.Word.Range range = document.Bookmarks[ref obj3].Range;
+                        MSWord.Range range = document.Bookmarks[ref obj3].Range;
                         MSWord.Table table2 = document.Tables.Add(range, num3 + 1, 11, ref template, ref template);
                         table2.Range.Font.Name = "宋体";
                         table2.Range.Font.Size = 9f;
@@ -474,15 +476,15 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
             }
         }
 
-        private MSWord.Document ThreadWork1(MSWord.Application docApp,List<Table_Column> list)
+        private MSWord.Document ThreadWork1(MSWord.Application docApp, List<Table_Column> list)
         {
             try
             {
                 //this.SetBtnDisable();
-                string text = "数据库名：" ;
+                string text = "数据库名：";
                 var gpbDbTabCols = list.GroupBy(p => p.TABLE_NAME);
 
-                int count = gpbDbTabCols.Count() ;// this.listTable2.Items.Count;
+                int count = gpbDbTabCols.Count();// this.listTable2.Items.Count;
                 //this.SetprogressBar1Max(count);
                 //this.SetprogressBar1Val(1);
                 //this.SetlblStatuText("0");
@@ -500,12 +502,14 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
                 WordApp.Selection.Font.Bold = 0x98967e;
                 WordApp.Selection.Font.Size = 12f;
                 WordApp.Selection.TypeText(text);
-                for (int i = 0; i < count; i++)
+                //
+                int i = 0;
+                foreach (var tab in gpbDbTabCols)
                 {
-                    string tableName ="" ;// this.listTable2.Items[i].ToString();
+                    string tableName = tab.Key;// this.listTable2.Items[i].ToString();
                     object missing = System.Type.Missing;
                     object length = text.Trim().Length;
-                    Microsoft.Office.Interop.Word.Range range = document.Range(ref length, ref length);
+                    MSWord.Range range = document.Range(ref length, ref length);
                     WordApp.Selection.Tables.Add(range, 2, 10, ref template, ref template);
                     object type = 11;
                     range.InsertBreak(ref type);
@@ -515,7 +519,7 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
                     table.Borders.Enable = 1;
                     table.AllowAutoFit = true;
                     table.Rows.Height = 15f;
-                    Microsoft.Office.Interop.Word.Range range2 = table.Rows[1].Range;
+                    MSWord.Range range2 = table.Rows[1].Range;
                     range2.Font.Size = 9f;
                     range2.Font.Name = "宋体";
                     range2.Font.Bold = 1;
@@ -524,7 +528,7 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
                     table.Cell(1, 3).Range.Text = "数据类型";
                     table.Cell(1, 4).Range.Text = "长度";
                     table.Cell(1, 5).Range.Text = "小数位";
-                    table.Cell(1, 6).Range.Text = "标识";
+                    table.Cell(1, 6).Range.Text = "自增列";
                     table.Cell(1, 7).Range.Text = "主键";
                     table.Cell(1, 8).Range.Text = "允许空";
                     table.Cell(1, 9).Range.Text = "默认值";
@@ -536,51 +540,34 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
                     table.Columns[6].Width = 33f;
                     table.Columns[7].Width = 33f;
                     table.Columns[8].Width = 43f;
-                    var columnInfoList = list.Where(p => p.TABLE_NAME == "");//this.dbobj.GetColumnInfoList(this.dbname, tableName);
+                    //var columnInfoList = list.Where(p => p.TABLE_NAME == "");//this.dbobj.GetColumnInfoList(this.dbname, tableName);
                     int row = 2;
-                    if ((columnInfoList != null) && (columnInfoList.Count() > 0))
+                    foreach (var info in tab)
                     {
-                        foreach (var info in columnInfoList)
-                        {
-                            //todo: 20160318 173139列名转换实现
-                            string columnOrder = "";// info.ColumnOrder;
-                            string columnName = info.COLUMN_NAME;//info.ColumnName;
-                            string typeName = info.DATA_TYPE;// info.DATA_TYPE;
-                            string str6 = "";//info.Length;
-                            string scale = "";//info.Scale;
-                            string str8 = "";//(info.IsIdentity.ToString().ToLower() == "true") ? "是" : "";
-                            string str9 = "";//(info.IsPrimaryKey.ToString().ToLower() == "true") ? "是" : "";
-                            string str10 = "";//(info.Nullable.ToString().ToLower() == "true") ? "是" : "否";
-                            string str11 = "";// info.DefaultVal.ToString();
-                            string str12 = "";//info.Description.ToString();
-                            if (str6.Trim() == "-1")
-                            {
-                                str6 = "MAX";
-                            }
-                            object beforeRow = System.Type.Missing;
-                            table.Rows.Add(ref beforeRow);
-                            table.Rows[row].Range.Select();
-                            MSWord.Range range3 = table.Rows[row].Range;
-                            range3.Font.Size = 9f;
-                            range3.Font.Name = "宋体";
-                            range3.Font.Bold = 0;
-                            range3.ParagraphFormat.Alignment = MSWord.WdParagraphAlignment.wdAlignParagraphLeft;
-                            table.Cell(row, 1).Range.Text = columnOrder;
-                            table.Cell(row, 2).Range.Text = columnName;
-                            table.Cell(row, 3).Range.Text = typeName;
-                            table.Cell(row, 4).Range.Text = str6;
-                            table.Cell(row, 5).Range.Text = scale;
-                            table.Cell(row, 6).Range.Text = str8;
-                            table.Cell(row, 7).Range.Text = str9;
-                            table.Cell(row, 8).Range.Text = str10;
-                            table.Cell(row, 9).Range.Text = str11;
-                            table.Cell(row, 10).Range.Text = str12;
-                            row++;
-                        }
+                        object beforeRow = System.Type.Missing;
+                        table.Rows.Add(ref beforeRow);
+                        table.Rows[row].Range.Select();
+                        MSWord.Range range3 = table.Rows[row].Range;
+                        range3.Font.Size = 9f;
+                        range3.Font.Name = "宋体";
+                        range3.Font.Bold = 0;
+                        range3.ParagraphFormat.Alignment = MSWord.WdParagraphAlignment.wdAlignParagraphLeft;
+                        table.Cell(row, 1).Range.Text = info.ORDINAL_POSITION;// info.ColumnOrder;
+                        table.Cell(row, 2).Range.Text = info.COLUMN_NAME;//info.ColumnName;
+                        table.Cell(row, 3).Range.Text = info.DATA_TYPE;// info.DATA_TYPE;
+                        table.Cell(row, 4).Range.Text = "";//info.Length;;
+                        table.Cell(row, 5).Range.Text = "";// info.Scale;;
+                        table.Cell(row, 6).Range.Text = info.IS_IDENTITY;//(info.IsIdentity.ToString().ToLower() == "true") ? "是" : "";;
+                        table.Cell(row, 7).Range.Text = info.IS_PRIMARY_KEY;//(info.IsPrimaryKey.ToString().ToLower() == "true") ? "是" : "";;
+                        table.Cell(row, 8).Range.Text = info.IS_NULLABLE;//(info.Nullable.ToString().ToLower() == "true") ? "是" : "否";;
+                        table.Cell(row, 9).Range.Text = info.COLUMN_DEFAULT;// info.DefaultVal.ToString();;
+                        table.Cell(row, 10).Range.Text = info.COLUMN_DESC;//info.Description.ToString();;
+                        row++;
                     }
                     //this.SetprogressBar1Val(i + 1);
                     //this.SetlblStatuText((i + 1).ToString());
                     table.Rows.First.Shading.Texture = MSWord.WdTextureIndex.wdTexture25Percent;
+                    i++;
                 }
                 WordApp.Visible = true;
 
@@ -597,7 +584,11 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
             }
         }
 
-
-
+        private void btnOpenFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo("Explorer.exe");
+            psi.Arguments = "/e,/select," + path.ToString();
+            System.Diagnostics.Process.Start(psi);
+        }
     }
 }
