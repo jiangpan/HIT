@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace FG.PDMReader.MSSQL
 {
+    /// <summary>
+    /// 数据字典列说明
+    /// </summary>
     public class Table_Column
     {
         public string TABLE_NAME { set; get; }
