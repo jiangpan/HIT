@@ -126,21 +126,8 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
         private void btnExportWord_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            //var tttt = this._curDbTabColsList.GroupBy(p => p.TABLE_NAME);
-
-            //foreach (var item in tttt)
-            //{
-            //    string sfds = item.Key;
-            //    foreach (var tabcol in item)
-            //    {
-            //        string sssdfe = tabcol.COLUMN_NAME;
-            //    }
-
-            //}
-
             CreateWord2();
             this.Cursor = Cursors.Default;
-
         }
 
 
@@ -175,12 +162,10 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
         {
             try
             {
-                //this.SetBtnDisable();
                 string text = "数据库名：";
                 var gpbDbTabCols = list.GroupBy(p => p.TABLE_NAME);
 
                 int count = gpbDbTabCols.Count();// this.listTable2.Items.Count;
-                object template = Missing.Value;
 
                 wordApp.Bold = true;
                 wordApp.Font.Size = 12f;
@@ -340,9 +325,7 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
                     wordApp.CellFormat.Borders.LineStyle = LineStyle.Single;
                     //样式设置结束    
                     wordApp.Write("说明");
-
                     wordApp.EndRow();
-
                     //var columnInfoList = list.Where(p => p.TABLE_NAME == "");//this.dbobj.GetColumnInfoList(this.dbname, tableName);
                     int row = 2;
                     foreach (var info in tab)
@@ -374,13 +357,8 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
                     wordApp.EndTable();
 
                     wordApp.InsertBreak(BreakType.LineBreak);
-                    //this.SetprogressBar1Val(i + 1);
-                    //this.SetlblStatuText((i + 1).ToString());
-                    //table.Rows.First.Shading.Texture = MSWord.WdTextureIndex.wdTexture25Percent;
                     i++;
                 }
-                //WordApp.Visible = true;
-
                 return wordApp;
             }
             catch (Exception exception)
