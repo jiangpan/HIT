@@ -9,6 +9,9 @@ namespace FG.PDMReader.MSSQL
     /// <summary>
     /// 添加注释 siupan
     /// </summary>
+    /// <summary>
+    /// 数据字典列说明
+    /// </summary>
     public class Table_Column
     {
         public string TABLE_NAME { set; get; }
