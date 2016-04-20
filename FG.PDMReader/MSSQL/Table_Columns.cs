@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace FG.PDMReader.MSSQL
 {
+    /// <summary>
+    /// 添加注释 siupan
+    /// </summary>
     public class Table_Column
     {
         public string TABLE_NAME { set; get; }
