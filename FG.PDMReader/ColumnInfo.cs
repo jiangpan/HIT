@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace FG.PDMReader
 {
 
-
+    /// <summary>
+    /// pdm列信息实体
+    /// </summary>
     public class ColumnInfo
     {
         public ColumnInfo()
