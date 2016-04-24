@@ -22,7 +22,7 @@ namespace FG.PDMReader.MSSQL
     public partial class frmFGMDM : Form
     {
         /// <summary>
-        /// sql语句还需要调整
+        /// sql语句还需要调整，优化结构
         /// </summary>
         private string sqlgetallcolumns = @"SELECT  /*CASE WHEN c.ORDINAL_POSITION = 1
              THEN c.TABLE_SCHEMA + '.' + c.TABLE_NAME
