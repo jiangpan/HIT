@@ -133,7 +133,9 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
             this.Cursor = Cursors.Default;
         }
 
-
+        /// <summary>
+        /// 生成word文档操作 20160425 090302
+        /// </summary>
         private void CreateWord2()
         {
             DocumentBuilder wordApp; //   a   reference   to   Word   application  
