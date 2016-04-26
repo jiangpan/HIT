@@ -135,6 +135,7 @@ ORDER BY c.TABLE_NAME ASC, c.ORDINAL_POSITION ";
 
         /// <summary>
         /// 生成word文档操作 20160425 090302
+        /// 增加注释
         /// </summary>
         private void CreateWord2()
         {
