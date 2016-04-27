@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Data;
-using Oracle.DataAccess.Client;
-using Oracle.DataAccess.Types;
+using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 namespace FG.PDMReader
 {
     /// <summary>
     /// Desciption: Oracle数据库访问类 (注：针对 odp.net ). 
-    /// Author    : yenange
+    /// Author    : siupan
     /// Date      : 2013-09-21
     /// </summary>
     public static class OracleHelper
