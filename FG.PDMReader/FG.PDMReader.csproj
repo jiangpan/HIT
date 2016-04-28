@@ -64,6 +64,12 @@
     <Compile Include="frmExportExcel.Designer.cs">
       <DependentUpon>frmExportExcel.cs</DependentUpon>
     </Compile>
+    <Compile Include="MSSQL\frmFGEMPI2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MSSQL\frmFGEMPI2.Designer.cs">
+      <DependentUpon>frmFGEMPI2.cs</DependentUpon>
+    </Compile>
     <Compile Include="MSSQL\Table_Columns.cs" />
     <Compile Include="MSSQL\frmFGMDM.cs">
       <SubType>Form</SubType>
@@ -98,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmExportExcel.resx">
       <DependentUpon>frmExportExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MSSQL\frmFGEMPI2.resx">
+      <DependentUpon>frmFGEMPI2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MSSQL\frmFGMDM.resx">
       <DependentUpon>frmFGMDM.cs</DependentUpon>
