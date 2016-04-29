@@ -23,6 +23,7 @@ namespace FG.PDMReader.MSSQL
     {
         /// <summary>
         /// sql语句还需要调整，优化结构
+        /// 调整sql20160429 091907
         /// </summary>
         private string sqlgetallcolumns = @"SELECT  /*CASE WHEN c.ORDINAL_POSITION = 1
              THEN c.TABLE_SCHEMA + '.' + c.TABLE_NAME
