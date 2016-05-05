@@ -8,7 +8,7 @@ namespace FG.PDMReader
 {
 
     /// <summary>
-    /// pdm列信息实体
+    /// pdm列信息实体 20160505 225031
     /// </summary>
     public class ColumnInfo
     {
