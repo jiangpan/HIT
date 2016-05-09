@@ -8,6 +8,7 @@ namespace FG.PDMReader
     /// Desciption: Oracle数据库访问类 (注：针对 odp.net ). 
     /// Author    : siupan
     /// Date      : 2013-09-21
+    /// odp.net manged
     /// </summary>
     public static class OracleHelper
     {
