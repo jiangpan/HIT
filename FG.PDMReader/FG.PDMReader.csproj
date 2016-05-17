@@ -93,6 +93,8 @@
       <DependentUpon>frmFGMDM.cs</DependentUpon>
     </Compile>
     <Compile Include="PdmReader.cs" />
+    <Compile Include="PDMResolve\PdmReader.cs" />
+    <Compile Include="PDMResolve\TitanExtensionReader.cs" />
     <Compile Include="TableInfo.cs" />
     <Compile Include="ColumnInfo.cs" />
     <Compile Include="frmMain.cs">
