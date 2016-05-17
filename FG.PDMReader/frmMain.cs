@@ -139,7 +139,7 @@ namespace FG.PDMReader
             try
             {
                 PdmReader mTest = new PdmReader(this.textBox1.Text);
-                frmExportExcel f2 = new frmExportExcel(mTest, this.textBox1.Text);
+                frmExport f2 = new frmExport(mTest, this.textBox1.Text);
                 f2.Owner = this;
                 f2.Show();
                 this.Visible = false;
@@ -148,6 +148,24 @@ namespace FG.PDMReader
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnGenWord_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                PdmReader mTest = new PdmReader(this.textBox1.Text);
+                frmExport f2 = new frmExport(mTest, this.textBox1.Text);
+                f2.Owner = this;
+                f2.Show();
+                this.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void tsmiOracleFGMDM_Click(object sender, EventArgs e)
@@ -182,5 +200,7 @@ namespace FG.PDMReader
             }
 
         }
+
+ 
     }
 }

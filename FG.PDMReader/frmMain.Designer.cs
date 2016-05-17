@@ -32,7 +32,7 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnBrowser = new System.Windows.Forms.Button();
-            this.btnGenExcel = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.mnsMain = new System.Windows.Forms.MenuStrip();
             this.pDM操作ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOracle = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,15 +77,15 @@
             this.btnBrowser.UseVisualStyleBackColor = true;
             this.btnBrowser.Click += new System.EventHandler(this.btnBrowser_Click);
             // 
-            // btnGenExcel
+            // btnExport
             // 
-            this.btnGenExcel.Location = new System.Drawing.Point(624, 173);
-            this.btnGenExcel.Name = "btnGenExcel";
-            this.btnGenExcel.Size = new System.Drawing.Size(75, 23);
-            this.btnGenExcel.TabIndex = 5;
-            this.btnGenExcel.Text = "导出Excel";
-            this.btnGenExcel.UseVisualStyleBackColor = true;
-            this.btnGenExcel.Click += new System.EventHandler(this.btnGenExcel_Click);
+            this.btnExport.Location = new System.Drawing.Point(624, 173);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
+            this.btnExport.TabIndex = 5;
+            this.btnExport.Text = "导出";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnGenExcel_Click);
             // 
             // mnsMain
             // 
@@ -140,7 +140,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 615);
-            this.Controls.Add(this.btnGenExcel);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnBrowser);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.richTextBox1);
@@ -162,7 +162,7 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnBrowser;
-        private System.Windows.Forms.Button btnGenExcel;
+        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.MenuStrip mnsMain;
         private System.Windows.Forms.ToolStripMenuItem pDM操作ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmiOracle;

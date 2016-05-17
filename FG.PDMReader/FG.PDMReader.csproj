@@ -62,12 +62,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmExportExcel.cs">
+    <Compile Include="frmExport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmExportExcel.Designer.cs">
-      <DependentUpon>frmExportExcel.cs</DependentUpon>
+    <Compile Include="frmExport.Designer.cs">
+      <DependentUpon>frmExport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\WordHelper.cs" />
     <Compile Include="MSSQL\frmFGEMPI2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,8 +107,8 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmExportExcel.resx">
-      <DependentUpon>frmExportExcel.cs</DependentUpon>
+    <EmbeddedResource Include="frmExport.resx">
+      <DependentUpon>frmExport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MSSQL\frmFGEMPI2.resx">
       <DependentUpon>frmFGEMPI2.cs</DependentUpon>

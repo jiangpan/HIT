@@ -1,6 +1,6 @@
 ﻿namespace FG.PDMReader
 {
-    partial class frmExportExcel
+    partial class frmExport
     {
         /// <summary>
         /// Required designer variable.
@@ -38,6 +38,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnExport2Word = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,11 +134,22 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "选择画面：";
             // 
-            // Form2
+            // btnExport2Word
+            // 
+            this.btnExport2Word.Location = new System.Drawing.Point(210, 459);
+            this.btnExport2Word.Name = "btnExport2Word";
+            this.btnExport2Word.Size = new System.Drawing.Size(75, 23);
+            this.btnExport2Word.TabIndex = 7;
+            this.btnExport2Word.Text = "导出到Word";
+            this.btnExport2Word.UseVisualStyleBackColor = true;
+            this.btnExport2Word.Click += new System.EventHandler(this.btnExport2Word_Click);
+            // 
+            // frmExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(612, 487);
+            this.Controls.Add(this.btnExport2Word);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.btnSave);
@@ -145,10 +157,10 @@
             this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "Form2";
+            this.Name = "frmExport";
             this.Text = "pdm导出excel";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form2_FormClosed);
-            this.Load += new System.EventHandler(this.Form2_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmExport_FormClosed);
+            this.Load += new System.EventHandler(this.frmExport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -167,5 +179,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn cbxTable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.Button btnExport2Word;
     }
 }

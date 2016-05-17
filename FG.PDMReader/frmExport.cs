@@ -12,9 +12,9 @@ using System.IO;
 
 namespace FG.PDMReader
 {
-    public partial class frmExportExcel : Form
+    public partial class frmExport : Form
     {
-        public frmExportExcel()
+        public frmExport()
         {
             InitializeComponent();
         }
@@ -23,7 +23,7 @@ namespace FG.PDMReader
 
         private string path = string.Empty;
 
-        public frmExportExcel(PdmReader pr, string path)
+        public frmExport(PdmReader pr, string path)
         {
             InitializeComponent();
 
@@ -31,15 +31,12 @@ namespace FG.PDMReader
             this.path = path;
         }
 
-        private void Form2_Load(object sender, EventArgs e)
+        private void frmExport_Load(object sender, EventArgs e)
         {
             pr.InitData();
 
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.DataSource = pr.Tables;
-            
-
-
             string[] names = null;
             List<string> hms = new List<string>();
             List<string> res = null;
@@ -64,8 +61,6 @@ namespace FG.PDMReader
             if (this.Owner != null)
             {
                 this.Owner.Show();
-
-
             }
             else
             {
@@ -108,12 +103,15 @@ namespace FG.PDMReader
             }
         }
 
-        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmExport_FormClosed(object sender, FormClosedEventArgs e)
         {
             System.Windows.Forms.Application.Exit();
 
         }
 
+        private void btnExport2Word_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
