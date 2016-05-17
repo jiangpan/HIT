@@ -111,6 +111,7 @@ namespace FG.PDMReader
 
         private void btnExport2Word_Click(object sender, EventArgs e)
         {
+            string sss = this.pr.PdmFile;
 
         }
     }
