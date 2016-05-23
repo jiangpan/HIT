@@ -9,6 +9,9 @@ using System.Xml;
 
 namespace FG.PDMReader.PDMResolve
 {
+    /// <summary>
+    /// 新增的pdm读取
+    /// </summary>
     public class PdmReader 
     {
         private static List<IExtensionReader> extensionReaders = new List<IExtensionReader>() { new TitanExtensionReader() };
